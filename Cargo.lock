@@ -203,6 +203,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "anchor_study"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+]
+
+[[package]]
 name = "anyhow"
 version = "1.0.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -509,13 +516,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.104",
-]
-
-[[package]]
-name = "demo"
-version = "0.1.0"
-dependencies = [
- "anchor-lang",
 ]
 
 [[package]]
