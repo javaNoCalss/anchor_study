@@ -1,6 +1,6 @@
  use anchor_lang::prelude::*;
 
- declare_id!("11111111111111111111111111111111");
+ declare_id!("DrwRdmrCGwowXgXE84fGk999V4EvVi3d7u4pnYCh4SUc");
 
 #[program]
 pub mod hello_anchor {

@@ -2,7 +2,7 @@ import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { HelloAnchor } from "../target/types/hello_anchor";
 
-describe("hello_anchor", () => {
+describe("anchor_study", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
