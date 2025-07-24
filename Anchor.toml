@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-anchor_study = "JDxC7EGzh9ETrW9bKuicQnx9Be2XpPd1WDeg1jND3KNG"
+anchor_study = "BrAZJ6b38nDDD7QPfWvD57CbyNiboDGu9Btjqdm2PbXQ"
 
 [registry]
 url = "https://api.apr.dev"
@@ -18,5 +18,12 @@ wallet = "~/.config/solana/id.json"
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
 
+[test]
+startup_wait = 5000
+shutdown_wait = 2000
+upgradeable = false
+
 [test.validator]
-rpc-port=9900
+bind_address = "127.0.0.1"
+ledger = ".anchor/test-ledger"
+rpc_port = 8899
