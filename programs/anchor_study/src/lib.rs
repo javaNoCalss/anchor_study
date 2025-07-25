@@ -19,20 +19,21 @@ pub mod pda{
     }
 
     pub fn update(ctx: Context<Update>, message: String) -> Result<()> {
+        msg!("Updating message account with message:{}", message);
         let account_data=&mut ctx.accounts.message_account;
         account_data.message= message;
 
         // 转账指令
-        let transfer_instraction=Transfer{
+        let transfer_instruction=Transfer{
             from: ctx.accounts.user.to_account_info(),
-            to: ctx.accounts.value_account.to_account_info()
+            to: ctx.accounts.vault_account.to_account_info()
         };
 
         
         // 创建 CPI 上下文
         let cpi_context=CpiContext::new(
             ctx.accounts.system_program.to_account_info(),
-            transfer_instraction,
+            transfer_instruction,
         );
 
         // 调用转账函数
@@ -45,11 +46,11 @@ pub mod pda{
         msg!("Deleting message account");
 
         let user_key=ctx.accounts.user.key();
-        let signer_seeds:&[&[&[u8]]] =&[&[b"value",user_key.as_ref(),&[ctx.bumps.value_account]]];
+        let signer_seeds:&[&[&[u8]]] =&[&[b"vault",user_key.as_ref(),&[ctx.bumps.vault_account]]];
 
         // 调用转账指令
         let transfer_instruction=Transfer {
-            from: ctx.accounts.value_account.to_account_info(),
+            from: ctx.accounts.vault_account.to_account_info(),
             to: ctx.accounts.user.to_account_info(),
         };
 
@@ -60,7 +61,7 @@ pub mod pda{
         ).with_signer(signer_seeds);
 
         // 执行转账
-        anchor_system_program::transfer(cpi_context, ctx.accounts.value_account.lamports())?;
+        anchor_system_program::transfer(cpi_context, ctx.accounts.vault_account.lamports())?;
 
         Ok(())
     }
@@ -94,9 +95,9 @@ pub struct Update<'info> {
 
     #[account(
         mut,
-        seeds = [b"value", user.key().as_ref()],
+        seeds = [b"vault", user.key().as_ref()],
         bump,)]
-    pub value_account: SystemAccount<'info>,
+    pub vault_account: SystemAccount<'info>,
 
 
     #[account(
@@ -123,10 +124,10 @@ pub struct Delete<'info> {
 
     #[account(
         mut,
-        seeds = [b"value", user.key().as_ref()],
+        seeds = [b"vault", user.key().as_ref()],
         bump,
     )]
-    pub value_account: SystemAccount<'info>,
+    pub vault_account: SystemAccount<'info>,
 
     
     #[account(

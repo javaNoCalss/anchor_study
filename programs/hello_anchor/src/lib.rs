@@ -2,7 +2,7 @@
  
  use anchor_lang::{prelude::*, system_program::{ Transfer}};
 
- declare_id!("BrAZJ6b38nDDD7QPfWvD57CbyNiboDGu9Btjqdm2PbXQ");
+ declare_id!("BVGgNPWwAwjqfyWaa1bjKMJhMHqkXaAkVSbXjBdjjxXz");
 
 #[program]
 pub mod hello_anchor {

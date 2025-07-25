@@ -4,6 +4,7 @@ import { HelloAnchor } from '../target/types/hello_anchor';
 import { assert } from 'chai';
 
 describe('hello_anchor', () => {
+  // 使用~/.config/solana/id.json的钱包作为默认提供者
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const program = anchor.workspace.hello_anchor as Program<HelloAnchor>;
@@ -17,7 +18,7 @@ describe('hello_anchor', () => {
       .initialize(data)
       .accounts({
         newAccount: newAccountKp.publicKey,
-        signer: provider.publicKey
+        signer: provider.publicKey,
       })
       .signers([newAccountKp])
       .rpc();
@@ -25,7 +26,7 @@ describe('hello_anchor', () => {
     console.log('Your transaction signature', txHash);
 
     await provider.connection.confirmTransaction(txHash);
-    console.log("Transaction confirmed");
+    console.log('Transaction confirmed');
 
     const newAccount = await program.account.newAccount.fetch(
       newAccountKp.publicKey
